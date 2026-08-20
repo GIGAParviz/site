@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+
+<html dir="ltr" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Amir Mehdi Parviz — AI Engineer portfolio" name="description"/>
+<title>Amir Mehdi Parviz — AI Engineer</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Vazirmatn:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#081017;
+  --panel:#0d1720;
+  --panel-2:#111d27;
+  --panel-3:#15232e;
+  --line:#253542;
+  --line-strong:#344956;
+  --text:#edf3f7;
+  --muted:#98a8b5;
+  --faint:#667988;
+  --accent:#66d8cd;
+  --warm:#e8aa4d;
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.7 Inter,sans-serif;overflow-x:hidden;position:relative;isolation:isolate}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.wrap{width:min(1240px,calc(100% - 48px));margin:auto}
+.mono{font-family:'IBM Plex Mono',monospace}
+
+nav{position:sticky;top:0;z-index:30;background:rgba(8,16,23,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+nav .wrap{min-height:66px;display:flex;align-items:center;gap:24px;justify-content:space-between}
+.brand{font:600 14px 'Space Grotesk';letter-spacing:.06em;white-space:nowrap}
+.navlinks{display:flex;align-items:center;justify-content:center;gap:22px;flex:1;color:var(--muted);font-size:12.5px}
+.navlinks a{transition:.2s}.navlinks a:hover{color:var(--accent)}
+.nav-actions{display:flex;align-items:center;gap:9px}
+.lang-toggle{border:1px solid var(--line-strong);background:var(--panel);color:var(--text);border-radius:7px;padding:7px 10px;cursor:pointer;font:500 11px 'IBM Plex Mono';transition:.2s}
+.lang-toggle:hover{border-color:var(--accent);color:var(--accent)}
+.nav-email{font:500 11px 'IBM Plex Mono';color:var(--muted)}
+
+main{padding:34px 0 70px}
+main,footer{position:relative;z-index:2}
+.surface{border:1px solid var(--line);background:rgba(13,23,32,.78);border-radius:var(--radius);padding:32px;margin-bottom:28px;box-shadow:0 18px 55px rgba(0,0,0,.13)}
+.hero.surface{padding:22px}
+.hero-grid{display:grid;grid-template-columns:minmax(350px,.82fr) minmax(580px,1.35fr);align-items:stretch;gap:22px}
+.hero-copy{border:1px solid var(--line);border-radius:12px;background:var(--panel-2);padding:34px;display:flex;flex-direction:column;justify-content:center}
+.kicker{color:var(--accent);font:500 11px 'IBM Plex Mono';letter-spacing:.12em;text-transform:uppercase}
+.identity-name{font:700 clamp(39px,5vw,64px)/1.03 'Space Grotesk';letter-spacing:-.04em;margin:12px 0 8px}
+.identity-role{font:500 13px 'IBM Plex Mono';color:var(--warm);margin-bottom:13px}
+.identity-meta{display:flex;gap:8px 14px;flex-wrap:wrap;color:var(--muted);font:11px 'IBM Plex Mono';margin-bottom:16px}
+.profile-links{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.profile-link{border:1px solid var(--line-strong);background:rgba(255,255,255,.015);border-radius:7px;padding:7px 10px;color:var(--muted);font:10.5px 'IBM Plex Mono';transition:.2s}
+.profile-link:hover{color:var(--accent);border-color:var(--accent);background:rgba(102,216,205,.04)}
+h1{font:600 clamp(28px,3.2vw,42px)/1.12 'Space Grotesk';letter-spacing:-.03em;margin:0 0 14px;max-width:590px}
+.lead{font-size:15px;color:var(--muted);max-width:590px;margin:0}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.btn{padding:10px 16px;border:1px solid var(--line-strong);border-radius:7px;font-weight:500;transition:.2s}.btn:hover{border-color:var(--accent)}.btn.primary{background:var(--text);color:var(--bg);border-color:var(--text)}
+
+.scanner{border:1px solid var(--line-strong);border-radius:12px;background:var(--panel);overflow:hidden;min-width:0}
+.scanner-head,.preview-status{min-height:45px;display:flex;align-items:center;gap:10px;padding:0 15px;color:var(--faint);font:10.5px 'IBM Plex Mono'}
+.scanner-head{border-bottom:1px solid var(--line)}.preview-status{border-top:1px solid var(--line)}.preview-status span:nth-child(2){flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.preview-stage{height:500px;position:relative;overflow:hidden;background:#05090d;display:grid;place-items:center}
+.preview-media{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transform:scale(1.01);transition:.7s ease;background:#05090d}.preview-media.visible{opacity:1;transform:scale(1)}
+.placeholder{text-align:center;color:var(--faint);font:11px 'IBM Plex Mono';padding:30px;max-width:420px}.placeholder strong{display:block;color:var(--muted);margin-bottom:6px}
+.rail{margin-inline-start:auto;display:flex;gap:5px}.rail-dot{width:18px;height:3px;border:0;background:#334552;padding:0;cursor:pointer}.rail-dot.active{background:var(--accent)}
+.preview-caption{position:absolute;z-index:4;inset-inline:18px;bottom:18px;padding:14px 15px;border:1px solid rgba(255,255,255,.14);background:rgba(5,9,13,.84);backdrop-filter:blur(12px);display:flex;align-items:flex-end;justify-content:space-between;gap:18px;border-radius:8px;opacity:0;transform:translateY(5px);transition:.35s;pointer-events:none}.preview-caption.show{opacity:1;transform:none}.preview-caption .pc-copy{min-width:0;max-width:650px}.preview-caption .pc-label{color:var(--accent);font:10px 'IBM Plex Mono';letter-spacing:.1em}.preview-caption b{display:block;font:600 15px 'Space Grotesk';margin-top:3px}.preview-caption p{margin:5px 0 0;color:var(--muted);font-size:11.5px;line-height:1.55;max-width:590px}.preview-caption a{pointer-events:auto;color:var(--text);font:10.5px 'IBM Plex Mono';white-space:nowrap}
+
+.proof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}.metric{border:1px solid var(--line);background:var(--panel);border-radius:11px;padding:18px 20px}.metric b{display:block;font:600 18px 'Space Grotesk';margin-bottom:3px}.metric span{color:var(--muted);font-size:12px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:30px;padding-bottom:22px;margin-bottom:24px;border-bottom:1px solid var(--line)}
+.section-head .num{color:var(--faint);font:11px 'IBM Plex Mono'}
+h2{font:600 31px 'Space Grotesk';margin:7px 0 0;letter-spacing:-.02em}.section-head p{color:var(--muted);max-width:480px;margin:0;font-size:13.5px}
+
+.focus-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.focus-item{border:1px solid var(--line);background:var(--panel);border-radius:11px;padding:20px;min-height:160px;transition:.22s}.focus-item:hover{border-color:var(--line-strong);transform:translateY(-2px)}.focus-no{color:var(--accent);font:10px 'IBM Plex Mono';letter-spacing:.1em}.focus-item h3{font:600 17px 'Space Grotesk';margin:10px 0 8px}.focus-item p{margin:0;color:var(--muted);font-size:13px}
+
+.project-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.project-card{position:relative;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:23px;min-width:0;transition:.22s;scroll-margin-top:92px}.project-card:hover{border-color:var(--line-strong);background:var(--panel-2)}.project-card.featured{grid-column:1/-1;background:var(--panel-2)}.project-card::before{content:"";position:absolute;left:-1px;top:20px;bottom:20px;width:2px;background:var(--accent);opacity:.35}.proj-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:8px}.proj-no{color:var(--faint);font:11px 'IBM Plex Mono'}.project-label{color:var(--accent);font:500 10px 'IBM Plex Mono';letter-spacing:.1em}.project-card h3{font:600 20px 'Space Grotesk';margin:0 0 9px}.project-card p{margin:0;color:var(--muted);font-size:13.5px;max-width:850px}.system-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}.system-meta>div{border:1px solid var(--line);background:rgba(255,255,255,.012);border-radius:8px;padding:10px 11px;min-width:0}.system-meta span{display:block;color:var(--faint);font:9.5px 'IBM Plex Mono';letter-spacing:.08em;margin-bottom:4px}.system-meta b{display:block;color:var(--text);font:500 11.5px 'IBM Plex Mono';line-height:1.5;overflow-wrap:anywhere}
+.privacy-note{margin-top:18px;border:1px dashed var(--line-strong);border-radius:9px;padding:12px 14px;color:var(--faint);font-size:12px;display:flex;gap:9px;align-items:flex-start}.privacy-note strong{color:var(--muted);font-weight:500}
+
+.build-card,.job-card,.about-card{border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:22px}.build-card{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:16px;align-items:start}.build-card h3,.job-card h3{font:600 19px 'Space Grotesk';margin:0 0 6px}.build-card p,.job-card p{margin:0;color:var(--muted);font-size:13.5px}.build-status{color:var(--warm);font:10px 'IBM Plex Mono';letter-spacing:.07em;border:1px solid var(--line-strong);padding:7px 9px;border-radius:6px;white-space:nowrap}
+.jobs{display:grid;grid-template-columns:1fr 1fr;gap:14px}.job-card time{display:block;color:var(--faint);font:10.5px 'IBM Plex Mono';margin-bottom:10px}.job-card .org{color:var(--accent);font-size:12.5px;margin-bottom:10px}.job-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:15px}.job-tags span{border:1px solid var(--line);border-radius:5px;padding:4px 7px;color:var(--faint);font:9.5px 'IBM Plex Mono'}
+.writing-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.writing-item{border:1px solid var(--line);background:var(--panel);border-radius:11px;padding:19px;transition:.22s}.writing-item:hover{border-color:var(--accent);transform:translateY(-2px)}.writing-item .proj-no{display:block;margin-bottom:18px}.writing-item h3{margin:0;font:600 16px 'Space Grotesk'}.writing-item p{margin:7px 0 17px;color:var(--muted);font-size:12.5px}.writing-item .arrow{color:var(--accent);font:10px 'IBM Plex Mono'}
+.about-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:14px}.about-card p{margin:0;color:var(--muted)}.edu .label{color:var(--faint);font:10px 'IBM Plex Mono';letter-spacing:.08em;margin-bottom:8px}.edu b{display:block;font:600 15px 'Space Grotesk';margin-bottom:5px}.edu span{color:var(--muted);font-size:12.5px}
+.contact-cta{border-color:var(--line-strong);background:var(--panel-2)}.contact-cta h2{max-width:750px}.contact-cta>p{color:var(--muted);max-width:690px}.contact-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:21px}
+footer{border-top:1px solid var(--line);padding:38px 0 55px;color:var(--muted)}.footer-row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.reveal{opacity:0;transform:translateY(10px);transition:.5s}.reveal.in{opacity:1;transform:none}
+
+html[dir="rtl"] body{font-family:'Vazirmatn',sans-serif;line-height:1.85}
+html[dir="rtl"] .mono,html[dir="rtl"] .kicker,html[dir="rtl"] .identity-role,html[dir="rtl"] .identity-meta,html[dir="rtl"] .profile-link,html[dir="rtl"] .nav-email,html[dir="rtl"] .lang-toggle,html[dir="rtl"] .scanner-head,html[dir="rtl"] .preview-status,html[dir="rtl"] .project-label,html[dir="rtl"] .proj-no,html[dir="rtl"] .section-head .num,html[dir="rtl"] .system-meta span,html[dir="rtl"] .build-status,html[dir="rtl"] .job-card time,html[dir="rtl"] .job-tags span,html[dir="rtl"] .writing-item .arrow{font-family:'Vazirmatn',sans-serif}
+html[dir="rtl"] .identity-name,html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] .focus-item h3,html[dir="rtl"] .project-card h3,html[dir="rtl"] .build-card h3,html[dir="rtl"] .job-card h3,html[dir="rtl"] .writing-item h3,html[dir="rtl"] .edu b,html[dir="rtl"] .preview-caption b{font-family:'Vazirmatn',sans-serif;letter-spacing:0}
+html[dir="rtl"] .project-card::before{left:auto;right:-1px}
+
+@media(max-width:1050px){.hero-grid{grid-template-columns:1fr}.preview-stage{height:min(58vw,500px)}.focus-grid{grid-template-columns:1fr 1fr}.writing-list{grid-template-columns:1fr 1fr}.jobs{grid-template-columns:1fr}.about-grid{grid-template-columns:1fr}.navlinks{display:none}}
+@media(max-width:720px){.wrap{width:min(100% - 26px,1240px)}main{padding-top:18px}.surface{padding:19px;margin-bottom:18px}.hero.surface{padding:12px}.hero-copy{padding:24px}.identity-name{font-size:43px}.preview-stage{height:62vw;min-height:290px}.proof-grid{grid-template-columns:1fr 1fr}.focus-grid,.project-grid,.writing-list{grid-template-columns:1fr}.project-card.featured{grid-column:auto}.system-meta{grid-template-columns:1fr}.section-head{display:block}.section-head p{margin-top:9px}.build-card{grid-template-columns:34px 1fr}.build-status{grid-column:2}.nav-email{display:none}.preview-caption{inset-inline:10px;bottom:10px}.preview-caption a{display:none}}
+@media(max-width:430px){.proof-grid{grid-template-columns:1fr}.profile-links{gap:6px}.profile-link{font-size:9.5px}.identity-meta{font-size:10px}.nav-actions{gap:6px}.lang-toggle{padding:6px 8px}.preview-caption{padding:6px 8px}.preview-caption b{font-size:10.8px}.preview-caption a{font-size:7.2px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+
+/* --- Minimal visual hierarchy refinement --- */
+main{padding-top:36px}
+.surface{border:0;background:transparent;border-radius:0;padding:0;margin-bottom:82px;box-shadow:none}
+.hero.surface{padding:0;margin-bottom:34px}
+.hero-copy{border:0;background:transparent;box-shadow:none}
+.scanner{border:1px solid var(--line-strong);box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
+
+#focus,#building,#writing,.contact-cta{background:rgba(13,23,32,.72);border-radius:18px;padding:30px}
+#projects,#experience,#about{padding-inline:4px}
+
+.section-head{border-bottom:0;padding-bottom:0;margin-bottom:30px;align-items:flex-end}
+.section-head>div:first-child::after{content:"";display:block;width:38px;height:2px;background:var(--accent);margin-top:14px;opacity:.8;border-radius:2px}
+
+.proof-grid{gap:10px}
+.metric{border:0;background:var(--panel);box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
+
+.focus-grid{gap:10px}
+.focus-item{border:0;background:var(--panel-2);box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
+.focus-item:hover{border-color:transparent;background:var(--panel-3)}
+
+.project-grid{gap:12px}
+.project-card{border:0;background:rgba(13,23,32,.72);box-shadow:inset 0 1px 0 rgba(255,255,255,.028)}
+.project-card:hover{border-color:transparent;background:var(--panel-2)}
+.project-card.featured{background:linear-gradient(145deg,var(--panel-2),rgba(13,23,32,.82))}
+.project-card::before{left:0;top:22px;bottom:22px;width:2px;opacity:.55;border-radius:2px}
+html[dir="rtl"] .project-card::before{left:auto;right:0}
+.system-meta{gap:7px}
+.system-meta>div{border:0;background:rgba(255,255,255,.025);box-shadow:inset 0 1px 0 rgba(255,255,255,.022)}
+.privacy-note{border:0;border-inline-start:2px solid rgba(102,216,205,.5);border-radius:0 8px 8px 0;background:rgba(102,216,205,.035)}
+html[dir="rtl"] .privacy-note{border-radius:8px 0 0 8px}
+
+.build-card,.job-card,.about-card{border:0;background:var(--panel-2);box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
+.build-status{border:0;background:rgba(232,170,77,.08)}
+.job-tags span{border:0;background:rgba(255,255,255,.032)}
+.writing-item{border:0;background:var(--panel-2);box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
+.writing-item:hover{border-color:transparent;background:var(--panel-3)}
+.contact-cta{background:linear-gradient(145deg,var(--panel-2),rgba(13,23,32,.82))}
+
+/* Public-safe expandable system diagrams */
+.public-overview{margin-top:16px;background:rgba(255,255,255,.018);border-radius:9px;overflow:hidden}
+.public-overview summary{list-style:none;cursor:pointer;padding:11px 12px;color:var(--accent);font:500 9.8px 'IBM Plex Mono';letter-spacing:.08em;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.public-overview summary::-webkit-details-marker{display:none}
+.public-overview summary::after{content:"+";color:var(--faint);font-size:15px;line-height:1}
+.public-overview[open] summary::after{content:"−"}
+.overview-body{padding:0 12px 13px}
+.overview-note{font-size:11.5px!important;color:var(--faint)!important;margin:0 0 12px!important;max-width:none!important}
+.public-diagram{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.diagram-node{padding:7px 10px;background:var(--panel-3);border-radius:6px;color:var(--text);font:500 10.5px 'IBM Plex Mono'}
+.diagram-arrow{color:var(--faint);font:12px 'IBM Plex Mono'}
+html[dir="rtl"] .public-overview summary,html[dir="rtl"] .diagram-node{font-family:'Vazirmatn',sans-serif;letter-spacing:0}
+html[dir="rtl"] .diagram-arrow{transform:scaleX(-1)}
+
+/* Better bilingual rhythm */
+html[dir="rtl"] .identity-name{line-height:1.18}
+html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3{line-height:1.55}
+html[dir="rtl"] .lead,html[dir="rtl"] .project-card p,html[dir="rtl"] .focus-item p,html[dir="rtl"] .job-card p{line-height:1.9}
+
+@media(max-width:980px){
+  #focus,#building,#writing,.contact-cta{padding:24px}
+}
+@media(max-width:620px){
+  .surface{margin-bottom:58px}
+  #focus,#building,#writing,.contact-cta{padding:20px;border-radius:14px}
+  .public-diagram{gap:5px}
+  .diagram-node{padding:6px 8px;font-size:9.5px}
+}
+
+
+/* --- Ambient stars + scroll-following orbital path --- */
+#starField{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:0;
+  opacity:.68;
+}
+
+/* A page-length background orbit with gentle, monotonic curves. The dim path is
+   always visible; a short bright segment follows reading progress vertically. */
+#scrollOrbit{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:0;
+  overflow:visible;
+}
+.orbit-base,
+.orbit-glow,
+.orbit-core{
+  fill:none;
+  vector-effect:non-scaling-stroke;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.orbit-base{
+  stroke:rgba(232,170,77,.105);
+  stroke-width:1.35;
+}
+.orbit-glow{
+  stroke:rgba(232,170,77,.26);
+  stroke-width:8;
+  stroke-dasharray:92 1000;
+  stroke-dashoffset:0;
+  filter:blur(5px);
+  opacity:.72;
+  will-change:stroke-dashoffset;
+}
+.orbit-core{
+  stroke:rgba(255,202,103,.92);
+  stroke-width:2.15;
+  stroke-dasharray:92 1000;
+  stroke-dashoffset:0;
+  filter:drop-shadow(0 0 5px rgba(232,170,77,.42));
+  will-change:stroke-dashoffset;
+}
+
+@media(max-width:720px){
+  #starField{opacity:.46}
+  .orbit-base{stroke:rgba(232,170,77,.08);stroke-width:1.1}
+  .orbit-glow{stroke-width:6;opacity:.58}
+  .orbit-core{stroke-width:1.75}
+}
+@media(prefers-reduced-motion:reduce){
+  .orbit-glow,.orbit-core{filter:none}
+}
+
+
+
+/* --- Mobile parity: preserve the desktop design language on small screens --- */
+@media (max-width: 1050px){
+  .wrap{width:min(100% - 32px,1240px)}
+  .hero-grid{grid-template-columns:minmax(280px,.9fr) minmax(420px,1.2fr);gap:16px}
+  .preview-stage{height:auto;aspect-ratio:16/10;min-height:0}
+  .focus-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .writing-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .jobs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .about-grid{grid-template-columns:1.15fr .85fr}
+  .navlinks{display:flex}
+}
+
+@media (max-width: 780px){
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  .wrap{width:min(100% - 24px,1240px)}
+  main{padding-top:24px}
+
+  nav .wrap{
+    min-height:auto;
+    padding:10px 0 8px;
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:8px 12px;
+  }
+  .brand{font-size:12px}
+  .nav-actions{justify-self:end}
+  .nav-email{display:inline-block;font-size:9.5px}
+  .lang-toggle{padding:6px 9px;font-size:10px}
+  .navlinks{
+    grid-column:1/-1;
+    order:3;
+    width:100%;
+    justify-content:flex-start;
+    gap:18px;
+    overflow-x:auto;
+    white-space:nowrap;
+    padding:7px 0 2px;
+    scrollbar-width:none;
+    font-size:11px;
+  }
+  .navlinks::-webkit-scrollbar{display:none}
+
+  .hero.surface{margin-bottom:26px}
+  .hero-grid{grid-template-columns:1fr;gap:16px}
+  .hero-copy{padding:8px 2px 4px}
+  .kicker{font-size:10px}
+  .identity-name{font-size:clamp(42px,13vw,58px);margin-top:10px}
+  .identity-role{font-size:11px;line-height:1.55}
+  .identity-meta{font-size:10px;gap:6px 11px;margin-bottom:14px}
+  .profile-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-bottom:24px}
+  .profile-link{text-align:center;font-size:9.5px;padding:8px 7px;white-space:nowrap}
+  h1{font-size:clamp(28px,8.3vw,36px);max-width:none}
+  .lead{font-size:13.5px;max-width:none}
+  .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px}
+  .btn{text-align:center;padding:10px 11px;font-size:12px}
+
+  .scanner{border-radius:11px}
+  .scanner-head,.preview-status{min-height:40px;padding:0 11px;font-size:9.5px}
+  .preview-stage{width:100%;height:auto;aspect-ratio:16/10;min-height:0}
+  .preview-caption{inset-inline:9px;bottom:9px;padding:10px 11px;gap:8px;align-items:flex-end}
+  .preview-caption .pc-label{font-size:8.5px}
+  .preview-caption b{font-size:13px}
+  .preview-caption p{font-size:10px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .preview-caption{inset-inline:7px;bottom:7px;padding:7px 9px;gap:7px;border-radius:7px;background:rgba(5,9,13,.76)}
+  .preview-caption .pc-label{display:none}
+  .preview-caption b{font-size:11.5px;line-height:1.3;margin:0;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+  .preview-caption p{display:none}
+  .preview-caption a{display:block;font-size:7.8px;flex:0 0 auto}
+
+  .surface{margin-bottom:52px}
+  #focus,#building,#writing,.contact-cta{padding:20px 16px;border-radius:14px}
+  #projects,#experience,#about{padding-inline:0}
+  .section-head{display:flex;align-items:flex-end;gap:14px;margin-bottom:22px}
+  .section-head>div:first-child{min-width:0}
+  .section-head p{font-size:11.5px;max-width:42%;margin:0}
+  .section-head .num{font-size:9.5px}
+  h2{font-size:clamp(24px,7vw,29px)}
+
+  .proof-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:22px}
+  .metric{padding:14px 13px}
+  .metric b{font-size:16px}
+  .metric span{font-size:10.5px}
+
+  .focus-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .focus-item{padding:15px 13px;min-height:145px}
+  .focus-item h3{font-size:14.5px}
+  .focus-item p{font-size:11.5px;line-height:1.65}
+
+  .project-grid{grid-template-columns:1fr;gap:10px}
+  .project-card.featured{grid-column:auto}
+  .project-card{padding:18px 15px}
+  .project-card h3{font-size:17px}
+  .project-card p{font-size:12px}
+  .proj-head{gap:8px}
+  .project-label,.proj-no{font-size:9px}
+  .system-meta{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin-top:14px}
+  .system-meta>div{padding:8px 7px}
+  .system-meta span{font-size:8px}
+  .system-meta b{font-size:9.2px;line-height:1.4}
+  .privacy-note{font-size:10.5px;padding:10px 11px}
+  .public-overview summary{font-size:8.8px;padding:10px}
+  .overview-note{font-size:10.5px!important}
+  .public-diagram{gap:4px}
+  .diagram-node{font-size:8.8px;padding:6px 7px}
+
+  .build-card{grid-template-columns:32px minmax(0,1fr) auto;gap:10px;padding:16px}
+  .build-card h3,.job-card h3{font-size:16px}
+  .build-card p,.job-card p{font-size:12px}
+  .build-status{grid-column:auto;font-size:8.5px;padding:6px 7px}
+  .jobs{grid-template-columns:1fr 1fr;gap:8px}
+  .job-card{padding:15px 13px}
+  .job-tags span{font-size:8.5px}
+
+  .writing-list{grid-template-columns:1fr;gap:8px}
+  .writing-item{padding:15px}
+  .about-grid{grid-template-columns:1fr;gap:8px}
+  .about-card{padding:16px}
+  .contact-links{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+  .contact-links .btn{padding-inline:6px;font-size:10.5px}
+
+  footer{padding:30px 0 42px}
+  .footer-row{font-size:11px}
+
+  #starField{opacity:.68}
+  .orbit-base{stroke:rgba(232,170,77,.095);stroke-width:1.2}
+  .orbit-glow{stroke-width:7;opacity:.64}
+  .orbit-core{stroke-width:1.9}
+}
+
+@media (max-width: 430px){
+  .wrap{width:min(100% - 20px,1240px)}
+  .identity-name{font-size:clamp(39px,12.5vw,50px)}
+  .profile-links{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .proof-grid,.focus-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .jobs{grid-template-columns:1fr}
+  .system-meta{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .section-head{display:block}
+  .section-head p{max-width:none;margin-top:8px}
+  .build-card{grid-template-columns:28px 1fr}
+  .build-status{grid-column:2;justify-self:start}
+  .contact-links{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<canvas id="starField" aria-hidden="true"></canvas>
+<svg id="scrollOrbit" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 1000 1000">
+  <path class="orbit-base" pathLength="1000" d="M 970 18 C 905 120 928 214 828 292 C 742 358 758 444 654 520 C 554 594 565 680 448 758 C 338 831 264 922 36 986"/>
+  <path class="orbit-glow" id="orbitGlow" pathLength="1000" d="M 970 18 C 905 120 928 214 828 292 C 742 358 758 444 654 520 C 554 594 565 680 448 758 C 338 831 264 922 36 986"/>
+  <path class="orbit-core" id="orbitCore" pathLength="1000" d="M 970 18 C 905 120 928 214 828 292 C 742 358 758 444 654 520 C 554 594 565 680 448 758 C 338 831 264 922 36 986"/>
+</svg>
+<nav>
+<div class="wrap">
+<div class="brand">A.M.PARVIZ</div>
+<div class="navlinks">
+<a data-i18n="nav.focus" href="#focus">Focus</a>
+<a data-i18n="nav.projects" href="#projects">Systems</a>
+<a data-i18n="nav.building" href="#building">Building</a>
+<a data-i18n="nav.experience" href="#experience">Experience</a>
+<a data-i18n="nav.writing" href="#writing">Writing</a>
+<a data-i18n="nav.about" href="#about">About</a>
+</div>
+<div class="nav-actions">
+<a class="nav-email" data-i18n="nav.email" href="https://mail.google.com/mail/?view=cm&fs=1&to=a.m.parviz02@gmail.com" target="_blank" rel="noopener">EMAIL ↗</a>
+<button aria-label="Switch language" class="lang-toggle" id="langToggle" type="button">FA</button>
+</div>
+</div>
+</nav>
+<main class="wrap">
+<section class="hero surface reveal">
+<div class="hero-grid">
+<div class="hero-copy">
+<div class="kicker" data-i18n="hero.kicker">Applied AI Engineer</div>
+<div class="identity-name">Amir Mehdi<br/>Parviz</div>
+<div class="identity-role" data-i18n="hero.role">LLM Systems · Document AI · AI Backend</div>
+<div class="identity-meta">
+<span data-i18n="hero.location">Iran</span>
+<span data-i18n="hero.years">3+ years in AI engineering</span>
+<span data-i18n="hero.engagement">Part-time / Project-based</span>
+</div>
+<div class="profile-links">
+<a class="profile-link" data-i18n="profile.email" href="https://mail.google.com/mail/?view=cm&fs=1&to=a.m.parviz02@gmail.com" target="_blank" rel="noopener">EMAIL ↗</a>
+<a class="profile-link" href="https://github.com/GIGAParviz" rel="noopener" target="_blank">GITHUB ↗</a>
+<a class="profile-link" href="https://www.linkedin.com/in/amir-mehdi-parviz/" rel="noopener" target="_blank">LINKEDIN ↗</a>
+<a class="profile-link" href="https://huggingface.co/GIGAParviz" rel="noopener" target="_blank">HUGGING FACE ↗</a>
+</div>
+<h1 data-i18n="hero.title">I build AI systems that survive contact with production.</h1>
+<p class="lead" data-i18n="hero.lead">I work across AI models, evaluation, serving and backend integration — turning experiments into usable, maintainable systems.</p>
+<div class="actions">
+<a class="btn primary" data-i18n="hero.work" href="#projects">Selected work</a>
+<a class="btn" data-i18n="hero.contact" href="https://mail.google.com/mail/?view=cm&fs=1&to=a.m.parviz02@gmail.com" target="_blank" rel="noopener">Get in touch</a>
+</div>
+</div>
+<div class="scanner">
+<div class="scanner-head"><span data-i18n="preview.label">PROJECT MEDIA</span><div class="rail" id="mediaRail"></div></div>
+<div class="preview-stage" id="previewStage">
+<div class="placeholder" id="previewPlaceholder"><strong data-i18n="preview.emptyTitle">Project previews</strong><span data-i18n="preview.emptyText">Images and videos from examples/ appear here automatically.</span></div>
+<div class="preview-caption" id="previewCaption"><div class="pc-copy"><span class="pc-label" data-i18n="preview.system">SELECTED SYSTEM</span><b id="previewProject">Selected system</b><p id="previewDescription"></p></div><a data-i18n="preview.view" href="#projects" id="previewProjectLink">VIEW PROJECT →</a></div>
+</div>
+<div class="preview-status"><span data-i18n="preview.path">examples/</span><span id="previewName">waiting for media…</span><span id="previewCount">0/0</span></div>
+</div>
+</div>
+</section>
+<div class="proof-grid reveal">
+<div class="metric"><b>3+</b><span data-i18n="proof.years">Years in AI engineering</span></div>
+<div class="metric"><b>7</b><span data-i18n="proof.systems">Selected systems</span></div>
+<div class="metric"><b data-i18n="proof.self">Self-hosted</b><span data-i18n="proof.deploy">Deployment experience</span></div>
+<div class="metric"><b data-i18n="proof.end">End-to-end</b><span data-i18n="proof.scope">Model to backend integration</span></div>
+</div>
+<section class="surface reveal" id="focus">
+<div class="section-head"><div><div class="num" data-i18n="focus.num">01 / ENGINEERING FOCUS</div><h2 data-i18n="focus.title">What I work on</h2></div><p data-i18n="focus.sub">A compact view of the engineering areas I repeatedly work across.</p></div>
+<div class="focus-grid">
+<div class="focus-item"><div class="focus-no">01</div><h3 data-i18n="focus.llm.title">LLM / VLM Systems</h3><p data-i18n="focus.llm.text">Applied language and vision-language systems built around real application workflows.</p></div>
+<div class="focus-item"><div class="focus-no">02</div><h3 data-i18n="focus.doc.title">Document AI</h3><p data-i18n="focus.doc.text">Persian OCR, document understanding and structured information extraction.</p></div>
+<div class="focus-item"><div class="focus-no">03</div><h3 data-i18n="focus.serve.title">Model Serving</h3><p data-i18n="focus.serve.text">Local and self-hosted inference, APIs, performance and deployment-oriented workflows.</p></div>
+<div class="focus-item"><div class="focus-no">04</div><h3 data-i18n="focus.backend.title">AI Backend</h3><p data-i18n="focus.backend.text">FastAPI services, databases, validation, orchestration and application integration.</p></div>
+</div>
+</section>
+<section class="surface reveal" id="projects">
+<div class="section-head"><div><div class="num" data-i18n="projects.num">02 / SELECTED SYSTEMS</div><h2 data-i18n="projects.title">Selected systems</h2></div><p data-i18n="projects.sub">Public summaries only. Internal architecture, datasets, prompts, business rules and implementation details are intentionally omitted.</p></div>
+<div class="project-grid">
+<article class="project-card featured" id="project-ocr">
+<div class="proj-head"><span class="proj-no">01</span><span class="project-label" data-i18n="project.featured">FEATURED SYSTEM</span></div>
+<h3 data-i18n="p1.title">Persian OCR &amp; Document Intelligence Platform</h3>
+<p data-i18n="p1.desc">Persian document intelligence system focused on dependable text extraction and structured outputs for real-world workflows.</p>
+<div class="system-meta"><div><span data-i18n="meta.focus">FOCUS</span><b data-i18n="p1.focus">Document AI</b></div><div><span data-i18n="meta.engineering">ENGINEERING</span><b data-i18n="p1.eng">Reliability + integration</b></div><div><span data-i18n="meta.stack">STACK</span><b data-i18n="p1.stack">Python · FastAPI · OpenCV · GPU Inference</b></div></div>
+<details class="public-overview"><summary data-en="PUBLIC SYSTEM OVERVIEW" data-fa="نمای کلی عمومی سیستم">PUBLIC SYSTEM OVERVIEW</summary><div class="overview-body"><p class="overview-note" data-en="High-level public view — internal architecture, data, prompts and business logic are intentionally omitted." data-fa="این فقط نمای عمومی سیستم است؛ معماری داخلی، داده‌ها، پرامپت‌ها و منطق کسب‌وکار عمداً منتشر نشده‌اند.">High-level public view — internal architecture, data, prompts and business logic are intentionally omitted.</p><div class="public-diagram"><span class="diagram-node" data-en="Document Input" data-fa="ورودی سند">Document Input</span><span aria-hidden="true" class="diagram-arrow">→</span><span class="diagram-node" data-en="AI Processing" data-fa="پردازش هوشمند">AI Processing</span><span aria-hidden="true" class="diagram-arrow">→</span><span class="diagram-node" data-en="Validation" data-fa="اعتبارسنجی">Validation</span><span aria-hidden="true" class="diagram-arrow">→</span><span class="diagram-node" data-en="Application Output" data-fa="خروجی کاربردی">Application Output</span></div></div></details></article>
+<article class="project-card" id="project-ocr-training">
+<div class="proj-head"><span class="proj-no">02</span><span class="project-label" data-i18n="project.featured">FEATURED SYSTEM</span></div>
+<h3 data-i18n="p2.title">Persian OCR Model Development &amp; Evaluation</h3>
+<p data-i18n="p2.desc">Model adaptation and evaluation work for Persian OCR using curated data and repeatable validation workflows.</p>
+<div class="system-meta"><div><span data-i18n="meta.focus">FOCUS</span><b data-i18n="p2.focus">OCR quality</b></div><div><span data-i18n="meta.engineering">ENGINEERING</span><b data-i18n="p2.eng">Training + evaluation</b></div><div><span data-i18n="meta.stack">STACK</span><b data-i18n="p2.stack">PyTorch · Transformers · PEFT</b></div></div>
+<details class="public-overview"><summary data-en="PUBLIC SYSTEM OVERVIEW" data-fa="نمای کلی عمومی سیستم">PUBLIC SYSTEM OVERVIEW</summary><div class="overview-body"><p class="overview-note" data-en="High-level public view — internal architecture, data, prompts and business logic are intentionally omitted." data-fa="این فقط نمای عمومی سیستم است؛ معماری داخلی، داده‌ها، پرامپت‌ها و منطق کسب‌وکار عمداً منتشر نشده‌اند.">High-level public view — internal architecture, data, prompts and business logic are intentionally omitted.</p><div class="public-diagram"><span class="diagram-node" data-en="Prepared Data" data-fa="داده آماده‌شده">Prepared Data</span><span aria-hidden="true" class="diagram-arrow">→</span><span class="diagram-node" data-en="Model Adaptation" data-fa="بهبود مدل">Model Adaptation</span><span aria-hidden="true" class="diagram-arrow">→</span><span class="diagram-node" data-en="Evaluation" data-fa="ارزیابی">Evaluation</span><span aria-hidden="true" class="diagram-arrow">→</span><span class="diagram-node" data-en="Candidate Model" data-fa="مدل منتخب">Candidate Model</span></div></div></details></article>
+<article class="project-card" id="project-survey">
+<div class="proj-head"><span class="proj-no">03</span><span class="project-label" data-i18n="project.system">SYSTEM</span></div>
+<h3 data-i18n="p3.title">AI-assisted Survey & Feedback System</h3>
+<p data-i18n="p3.desc">Application-oriented survey system with AI-assisted processing and structured response workflows.</p>
+<div class="system-meta"><div><span data-i18n="meta.focus">FOCUS</span><b data-i18n="p3.focus">AI applications</b></div><div><span data-i18n="meta.engineering">ENGINEERING</span><b data-i18n="p3.eng">Workflow integration</b></div><div><span data-i18n="meta.stack">STACK</span><b data-i18n="p3.stack">Python · Application AI</b></div></div>
+<details class="public-overview"><summary data-en="PUBLIC SYSTEM OVERVIEW" data-fa="نمای کلی عمومی سیستم">PUBLIC SYSTEM OVERVIEW</summary><div class="overview-body"><p class="overview-note" data-en="High-level public view — internal architecture, data, prompts and business logic are intentionally omitted." data-fa="این فقط نمای عمومی سیستم است؛ معماری داخلی، داده‌ها، پرامپت‌ها و منطق کسب‌وکار عمداً منتشر نشده‌اند.">High-level public view — internal architecture, data, prompts and business logic are intentionally omitted.</p><div class="public-diagram"><span class="diagram-node" data-en="User Workflow" data-fa="جریان کاربر">User Workflow</span><span aria-hidden="true" class="diagram-arrow">→</span><span class="diagram-node" data-en="AI Assistance" data-fa="کمک هوش مصنوعی">AI Assistance</span><span aria-hidden="true" class="diagram-arrow">→</span><span class="diagram-node" data-en="Structured Data" data-fa="داده ساختاریافته">Structured Data</span><span aria-hidden="true" class="diagram-arrow">→</span><span class="diagram-node" data-en="Application Flow" data-fa="جریان نرم‌افزار">Application Flow</span></div></div></details></article>
+<article class="project-card" id="project-speech">
+<div class="proj-head"><span class="proj-no">04</span><span class="project-label" data-i18n="project.system">SYSTEM</span></div>
+<h3 data-i18n="p4.title">Speech-enabled AI Response System</h3>
+<p data-i18n="p4.desc">Voice-based AI interaction system combining speech interfaces with language-model processing.</p>
+<div class="system-meta"><div><span data-i18n="meta.focus">FOCUS</span><b data-i18n="p4.focus">Voice AI</b></div><div><span data-i18n="meta.engineering">ENGINEERING</span><b data-i18n="p4.eng">AI orchestration</b></div><div><span data-i18n="meta.stack">STACK</span><b data-i18n="p4.stack">Python · Speech · LLM</b></div></div>
+<details class="public-overview"><summary data-en="PUBLIC SYSTEM OVERVIEW" data-fa="نمای کلی عمومی سیستم">PUBLIC SYSTEM OVERVIEW</summary><div class="overview-body"><p class="overview-note" data-en="High-level public view — internal architecture, data, prompts and business logic are intentionally omitted." data-fa="این فقط نمای عمومی سیستم است؛ معماری داخلی، داده‌ها، پرامپت‌ها و منطق کسب‌وکار عمداً منتشر نشده‌اند.">High-level public view — internal architecture, data, prompts and business logic are intentionally omitted.</p><div class="public-diagram"><span class="diagram-node" data-en="Voice Interface" data-fa="رابط صوتی">Voice Interface</span><span aria-hidden="true" class="diagram-arrow">→</span><span class="diagram-node" data-en="AI Processing" data-fa="پردازش هوشمند">AI Processing</span><span aria-hidden="true" class="diagram-arrow">→</span><span class="diagram-node" data-en="Response Layer" data-fa="لایه پاسخ">Response Layer</span><span aria-hidden="true" class="diagram-arrow">→</span><span class="diagram-node" data-en="User Output" data-fa="خروجی کاربر">User Output</span></div></div></details></article>
+<article class="project-card" id="project-dabir">
+<div class="proj-head"><span class="proj-no">05</span><span class="project-label" data-i18n="project.system">SYSTEM</span></div>
+<h3 data-i18n="p5.title">AI Document Workflow / DABIRKHANEH</h3>
+<p data-i18n="p5.desc">Persian document-workflow application using AI-assisted processing within a controlled software workflow.</p>
+<div class="system-meta"><div><span data-i18n="meta.focus">FOCUS</span><b data-i18n="p5.focus">Document workflows</b></div><div><span data-i18n="meta.engineering">ENGINEERING</span><b data-i18n="p5.eng">Backend + AI integration</b></div><div><span data-i18n="meta.stack">STACK</span><b data-i18n="p5.stack">FastAPI · PostgreSQL · APIs</b></div></div>
+<details class="public-overview"><summary data-en="PUBLIC SYSTEM OVERVIEW" data-fa="نمای کلی عمومی سیستم">PUBLIC SYSTEM OVERVIEW</summary><div class="overview-body"><p class="overview-note" data-en="High-level public view — internal architecture, data, prompts and business logic are intentionally omitted." data-fa="این فقط نمای عمومی سیستم است؛ معماری داخلی، داده‌ها، پرامپت‌ها و منطق کسب‌وکار عمداً منتشر نشده‌اند.">High-level public view — internal architecture, data, prompts and business logic are intentionally omitted.</p><div class="public-diagram"><span class="diagram-node" data-en="Document Input" data-fa="ورودی سند">Document Input</span><span aria-hidden="true" class="diagram-arrow">→</span><span class="diagram-node" data-en="AI Workflow" data-fa="گردش کار هوشمند">AI Workflow</span><span aria-hidden="true" class="diagram-arrow">→</span><span class="diagram-node" data-en="Validation" data-fa="اعتبارسنجی">Validation</span><span aria-hidden="true" class="diagram-arrow">→</span><span class="diagram-node" data-en="Controlled Output" data-fa="خروجی کنترل‌شده">Controlled Output</span></div></div></details></article>
+<article class="project-card" id="project-ecg">
+<div class="proj-head"><span class="proj-no">06</span><span class="project-label" data-i18n="project.system">SYSTEM</span></div>
+<h3 data-i18n="p6.title">ECG Analysis &amp; Classification Pipeline</h3>
+<p data-i18n="p6.desc">Computer-vision and machine-learning pipeline for ECG analysis with reviewable structured outputs.</p>
+<div class="system-meta"><div><span data-i18n="meta.focus">FOCUS</span><b data-i18n="p6.focus">Computer vision</b></div><div><span data-i18n="meta.engineering">ENGINEERING</span><b data-i18n="p6.eng">Detection + classification</b></div><div><span data-i18n="meta.stack">STACK</span><b data-i18n="p6.stack">OpenCV · ML · Python</b></div></div>
+<details class="public-overview"><summary data-en="PUBLIC SYSTEM OVERVIEW" data-fa="نمای کلی عمومی سیستم">PUBLIC SYSTEM OVERVIEW</summary><div class="overview-body"><p class="overview-note" data-en="High-level public view — internal architecture, data, prompts and business logic are intentionally omitted." data-fa="این فقط نمای عمومی سیستم است؛ معماری داخلی، داده‌ها، پرامپت‌ها و منطق کسب‌وکار عمداً منتشر نشده‌اند.">High-level public view — internal architecture, data, prompts and business logic are intentionally omitted.</p><div class="public-diagram"><span class="diagram-node" data-en="Input" data-fa="ورودی">Input</span><span aria-hidden="true" class="diagram-arrow">→</span><span class="diagram-node" data-en="ML Analysis" data-fa="تحلیل یادگیری ماشین">ML Analysis</span><span aria-hidden="true" class="diagram-arrow">→</span><span class="diagram-node" data-en="Review" data-fa="بازبینی">Review</span><span aria-hidden="true" class="diagram-arrow">→</span><span class="diagram-node" data-en="Structured Output" data-fa="خروجی ساختاریافته">Structured Output</span></div></div></details></article>
+<article class="project-card" id="project-engineering">
+<div class="proj-head"><span class="proj-no">07</span><span class="project-label" data-i18n="project.engineering">ENGINEERING PROJECTS</span></div>
+<h3 data-i18n="p7.title">Additional Engineering Projects</h3>
+<p data-i18n="p7.desc">Backend, product and AI-integration work spanning application services and deployment-oriented engineering.</p>
+<div class="system-meta"><div><span data-i18n="meta.focus">FOCUS</span><b data-i18n="p7.focus">Product engineering</b></div><div><span data-i18n="meta.engineering">ENGINEERING</span><b data-i18n="p7.eng">Backend + delivery</b></div><div><span data-i18n="meta.stack">STACK</span><b data-i18n="p7.stack">Docker · C#/.NET · APIs</b></div></div>
+<details class="public-overview"><summary data-en="PUBLIC SYSTEM OVERVIEW" data-fa="نمای کلی عمومی سیستم">PUBLIC SYSTEM OVERVIEW</summary><div class="overview-body"><p class="overview-note" data-en="High-level public view — internal architecture, data, prompts and business logic are intentionally omitted." data-fa="این فقط نمای عمومی سیستم است؛ معماری داخلی، داده‌ها، پرامپت‌ها و منطق کسب‌وکار عمداً منتشر نشده‌اند.">High-level public view — internal architecture, data, prompts and business logic are intentionally omitted.</p><div class="public-diagram"><span class="diagram-node" data-en="Application" data-fa="اپلیکیشن">Application</span><span aria-hidden="true" class="diagram-arrow">→</span><span class="diagram-node" data-en="Service Layer" data-fa="لایه سرویس">Service Layer</span><span aria-hidden="true" class="diagram-arrow">→</span><span class="diagram-node" data-en="AI / Backend Logic" data-fa="منطق AI / بک‌اند">AI / Backend Logic</span><span aria-hidden="true" class="diagram-arrow">→</span><span class="diagram-node" data-en="Deployment" data-fa="استقرار">Deployment</span></div></div></details></article>
+</div>
+<div class="privacy-note"><span>◈</span><span><strong data-i18n="projects.privateTitle">Portfolio disclosure policy:</strong> <span data-i18n="projects.privateText">project descriptions are intentionally high-level; sensitive technical and business details are not published.</span></span></div>
+</section>
+<section class="surface reveal" id="building">
+<div class="section-head"><div><div class="num" data-i18n="building.num">03 / CURRENTLY BUILDING</div><h2 data-i18n="building.title">Work in progress</h2></div><p data-i18n="building.sub">A public-level snapshot of what I am exploring now.</p></div>
+<div class="build-card"><div class="proj-no">01</div><div><h3 data-i18n="building.project">Multi-model Project Planning System</h3><p data-i18n="building.desc">An experimental AI system for comparing model-generated implementation approaches before a project moves into execution.</p></div><div class="build-status" data-i18n="building.status">IN DEVELOPMENT</div></div>
+</section>
+<section class="surface reveal" id="experience">
+<div class="section-head"><div><div class="num" data-i18n="experience.num">04 / EXPERIENCE</div><h2 data-i18n="experience.title">Production context</h2></div><p data-i18n="experience.sub">Roles and engineering domains, kept concise.</p></div>
+<div class="jobs">
+<div class="job-card"><time>2026 — Present</time><h3 data-i18n="job1.title">AI Engineer · Part-time / Project-based</h3><div class="org">Vira RNDlab · Iran</div><p data-i18n="job1.desc">Project-based AI engineering across document AI, LLM/VLM applications, model serving, evaluation and backend integration.</p><div class="job-tags"><span>Document AI</span><span>Model Serving</span><span>Evaluation</span><span>FastAPI</span></div></div>
+<div class="job-card"><time>2020 — 2025</time><h3 data-i18n="job2.title">AI Developer &amp; Data Analyst</h3><div class="org">Caitech · Iran</div><p data-i18n="job2.desc">AI product work across NLP, computer vision, document processing, data analysis and application integration.</p><div class="job-tags"><span>LLM / NLP</span><span>Computer Vision</span><span>Data Analysis</span><span>APIs</span></div></div>
+</div>
+</section>
+<section class="surface reveal" id="writing">
+<div class="section-head"><div><div class="num" data-i18n="writing.num">05 / WRITING &amp; NOTES</div><h2 data-i18n="writing.title">Engineering ideas I write about</h2></div><p data-i18n="writing.sub">Public notes around AI engineering, reliability and deployment.</p></div>
+<div class="writing-list">
+<a class="writing-item" href="https://www.linkedin.com/in/amir-mehdi-parviz/" rel="noopener" target="_blank"><span class="proj-no">01</span><h3 data-i18n="w1.title">Reliable AI Systems</h3><p data-i18n="w1.desc">Why production reliability requires more than model quality.</p><span class="arrow">LINKEDIN ↗</span></a>
+<a class="writing-item" href="https://www.linkedin.com/in/amir-mehdi-parviz/" rel="noopener" target="_blank"><span class="proj-no">02</span><h3 data-i18n="w2.title">vLLM vs Ollama in Local Model Serving</h3><p data-i18n="w2.desc">Practical observations around local serving and production-oriented inference.</p><span class="arrow">LINKEDIN ↗</span></a>
+<a class="writing-item" href="https://www.linkedin.com/in/amir-mehdi-parviz/" rel="noopener" target="_blank"><span class="proj-no">03</span><h3 data-i18n="w3.title">Persian OCR Engineering Notes</h3><p data-i18n="w3.desc">Lessons from building and evaluating Persian OCR systems.</p><span class="arrow">LINKEDIN ↗</span></a>
+</div>
+</section>
+<section class="surface reveal" id="about">
+<div class="section-head"><div><div class="num" data-i18n="about.num">06 / ABOUT</div><h2 data-i18n="about.title">AI engineering with a systems mindset</h2></div></div>
+<div class="about-grid"><div class="about-card"><p data-i18n="about.text">I work across the boundary between AI models and software systems: evaluation, serving, APIs, backend integration and the engineering required to move from a prototype toward a usable product.</p></div><div class="about-card edu"><div class="label" data-i18n="about.edu">EDUCATION</div><b data-i18n="about.uni">Kermanshah University of Technology</b><span data-i18n="about.degree">Bachelor of Chemical Engineering · 2022 — 2026 · Iran</span></div></div>
+</section>
+<section class="surface contact-cta reveal">
+<div class="section-head"><div><div class="num" data-i18n="contact.num">07 / CONTACT</div><h2 data-i18n="contact.title">Building an AI system that needs to move beyond the demo?</h2></div></div>
+<p data-i18n="contact.text">I am interested in AI engineering work around LLM/VLM systems, Document AI, model serving and backend integration.</p>
+<div class="contact-links"><a class="btn primary" data-i18n="contact.email" href="https://mail.google.com/mail/?view=cm&fs=1&to=a.m.parviz02@gmail.com" target="_blank" rel="noopener">Email me</a><a class="btn" href="https://github.com/GIGAParviz" rel="noopener" target="_blank">GitHub</a><a class="btn" href="https://www.linkedin.com/in/amir-mehdi-parviz/" rel="noopener" target="_blank">LinkedIn</a></div>
+</section>
+</main>
+<footer><div class="wrap footer-row"><div><b style="color:var(--text)">Amir Mehdi Parviz</b><br/><span data-i18n="footer.role">AI Engineer · Iran</span></div><div class="mono">a.m.parviz02@gmail.com · GitHub · LinkedIn</div></div></footer>
+<script>
+const I18N={
+  en:{
+    'nav.focus':'Focus','nav.projects':'Systems','nav.building':'Building','nav.experience':'Experience','nav.writing':'Writing','nav.about':'About','nav.email':'EMAIL ↗',
+    'hero.kicker':'Applied AI Engineer','hero.role':'LLM Systems · Document AI · AI Backend','hero.location':'Iran','hero.years':'3+ years in AI engineering','hero.engagement':'Part-time / Project-based','profile.email':'EMAIL ↗','hero.title':'I build AI systems that survive contact with production.','hero.lead':'I work across AI models, evaluation, serving and backend integration — turning experiments into usable, maintainable systems.','hero.work':'Selected work','hero.contact':'Get in touch',
+    'preview.label':'PROJECT MEDIA','preview.emptyTitle':'Project previews','preview.emptyText':'Selected project media is loaded directly for faster previews.','preview.system':'SELECTED SYSTEM','preview.view':'VIEW PROJECT →','preview.path':'examples/','preview.wait':'waiting for media…','preview.add':'Add media to examples/','preview.github':'On GitHub Pages, keep the repository public so the page can discover images and videos automatically.','preview.selected':'Selected system',
+    'proof.years':'Years in AI engineering','proof.systems':'Selected systems','proof.self':'Self-hosted','proof.deploy':'Deployment experience','proof.end':'End-to-end','proof.scope':'Model to backend integration',
+    'focus.num':'01 / ENGINEERING FOCUS','focus.title':'What I work on','focus.sub':'A compact view of the engineering areas I repeatedly work across.','focus.llm.title':'LLM / VLM Systems','focus.llm.text':'Applied language and vision-language systems built around real application workflows.','focus.doc.title':'Document AI','focus.doc.text':'Persian OCR, document understanding and structured information extraction.','focus.serve.title':'Model Serving','focus.serve.text':'Local and self-hosted inference, APIs, performance and deployment-oriented workflows.','focus.backend.title':'AI Backend','focus.backend.text':'FastAPI services, databases, validation, orchestration and application integration.',
+    'projects.num':'02 / SELECTED SYSTEMS','projects.title':'Selected systems','projects.sub':'Public summaries only. Internal architecture, datasets, prompts, business rules and implementation details are intentionally omitted.','project.featured':'FEATURED SYSTEM','project.system':'SYSTEM','project.engineering':'ENGINEERING PROJECTS','meta.focus':'FOCUS','meta.engineering':'ENGINEERING','meta.stack':'STACK','projects.privateTitle':'Portfolio disclosure policy:','projects.privateText':'project descriptions are intentionally high-level; sensitive technical and business details are not published.',
+    'p1.title':'Persian OCR & Document Intelligence Platform','p1.desc':'Persian document intelligence system focused on dependable text extraction and structured outputs for real-world workflows.','p1.focus':'Document AI','p1.eng':'Reliability + integration','p1.stack':'Python · FastAPI · OpenCV · GPU Inference',
+    'p2.title':'Persian OCR Model Development & Evaluation','p2.desc':'Model adaptation and evaluation work for Persian OCR using curated data and repeatable validation workflows.','p2.focus':'OCR quality','p2.eng':'Training + evaluation','p2.stack':'PyTorch · Transformers · PEFT',
+    'p3.title':'AI-assisted Survey & Feedback System','p3.desc':'Application-oriented survey system with AI-assisted processing and structured response workflows.','p3.focus':'AI applications','p3.eng':'Workflow integration','p3.stack':'Python · Application AI',
+    'p4.title':'Speech-enabled AI Response System','p4.desc':'Voice-based AI interaction system combining speech interfaces with language-model processing.','p4.focus':'Voice AI','p4.eng':'AI orchestration','p4.stack':'Python · Speech · LLM',
+    'p5.title':'AI Document Workflow / DABIRKHANEH','p5.desc':'Persian document-workflow application using AI-assisted processing within a controlled software workflow.','p5.focus':'Document workflows','p5.eng':'Backend + AI integration','p5.stack':'FastAPI · PostgreSQL · APIs',
+    'p6.title':'ECG Analysis & Classification Pipeline','p6.desc':'Computer-vision and machine-learning pipeline for ECG analysis with reviewable structured outputs.','p6.focus':'Computer vision','p6.eng':'Detection + classification','p6.stack':'OpenCV · ML · Python',
+    'p7.title':'Additional Engineering Projects','p7.desc':'Backend, product and AI-integration work spanning application services and deployment-oriented engineering.','p7.focus':'Product engineering','p7.eng':'Backend + delivery','p7.stack':'Docker · C#/.NET · APIs',
+    'building.num':'03 / CURRENTLY BUILDING','building.title':'Work in progress','building.sub':'A public-level snapshot of what I am exploring now.','building.project':'Multi-model Project Planning System','building.desc':'An experimental AI system for comparing model-generated implementation approaches before a project moves into execution.','building.status':'IN DEVELOPMENT',
+    'experience.num':'04 / EXPERIENCE','experience.title':'Production context','experience.sub':'Roles and engineering domains, kept concise.','job1.title':'AI Engineer · Part-time / Project-based','job1.desc':'Project-based AI engineering across document AI, LLM/VLM applications, model serving, evaluation and backend integration.','job2.title':'AI Developer & Data Analyst','job2.desc':'AI product work across NLP, computer vision, document processing, data analysis and application integration.',
+    'writing.num':'05 / WRITING & NOTES','writing.title':'Engineering ideas I write about','writing.sub':'Public notes around AI engineering, reliability and deployment.','w1.title':'Reliable AI Systems','w1.desc':'Why production reliability requires more than model quality.','w2.title':'vLLM vs Ollama in Local Model Serving','w2.desc':'Practical observations around local serving and production-oriented inference.','w3.title':'Persian OCR Engineering Notes','w3.desc':'Lessons from building and evaluating Persian OCR systems.',
+    'about.num':'06 / ABOUT','about.title':'AI engineering with a systems mindset','about.text':'I work across the boundary between AI models and software systems: evaluation, serving, APIs, backend integration and the engineering required to move from a prototype toward a usable product.','about.edu':'EDUCATION','about.uni':'Kermanshah University of Technology','about.degree':'Bachelor of Chemical Engineering · 2022 — 2026 · Iran',
+    'contact.num':'07 / CONTACT','contact.title':'Building an AI system that needs to move beyond the demo?','contact.text':'I am interested in AI engineering work around LLM/VLM systems, Document AI, model serving and backend integration.','contact.email':'Email me','footer.role':'AI Engineer · Iran'
+  },
+  fa:{
+    'nav.focus':'تمرکز تخصصی','nav.projects':'پروژه‌ها','nav.building':'در حال ساخت','nav.experience':'تجربه','nav.writing':'نوشته‌ها','nav.about':'درباره من','nav.email':'ایمیل ↗',
+    'hero.kicker':'مهندس هوش مصنوعی کاربردی','hero.role':'سیستم‌های LLM · هوش اسناد · بک‌اند هوش مصنوعی','hero.location':'ایران','hero.years':'بیش از ۳ سال تجربه در مهندسی هوش مصنوعی','hero.engagement':'پاره‌وقت / پروژه‌ای','profile.email':'ایمیل ↗','hero.title':'سیستم‌های هوش مصنوعی را برای استفاده واقعی و فراتر از دمو می‌سازم.','hero.lead':'در مرز بین مدل‌های هوش مصنوعی، ارزیابی، سروینگ و بک‌اند کار می‌کنم تا آزمایش‌ها به سیستم‌های قابل‌استفاده و قابل‌نگهداری تبدیل شوند.','hero.work':'مشاهده پروژه‌ها','hero.contact':'ارتباط با من',
+    'preview.label':'پیش‌نمایش پروژه‌ها','preview.emptyTitle':'پیش‌نمایش پروژه‌ها','preview.emptyText':'رسانه‌های منتخب پروژه‌ها به‌صورت مستقیم بارگذاری می‌شوند تا پیش‌نمایش سریع‌تر باشد.','preview.system':'پروژه منتخب','preview.view':'مشاهده پروژه ←','preview.path':'examples/','preview.wait':'در انتظار فایل…','preview.add':'فایل‌های پروژه را داخل examples/ قرار دهید','preview.github':'در GitHub Pages مخزن را Public نگه دارید تا تصاویر و ویدئوها به‌صورت خودکار شناسایی شوند.','preview.selected':'پروژه منتخب',
+    'proof.years':'سال تجربه در مهندسی AI','proof.systems':'سیستم منتخب','proof.self':'Self-hosted','proof.deploy':'تجربه استقرار مدل','proof.end':'End-to-end','proof.scope':'از مدل تا یکپارچه‌سازی بک‌اند',
+    'focus.num':'۰۱ / تمرکز تخصصی','focus.title':'حوزه‌هایی که روی آن‌ها کار می‌کنم','focus.sub':'نمایی کوتاه از حوزه‌های مهندسی که به‌طور مداوم در پروژه‌ها با آن‌ها درگیر هستم.','focus.llm.title':'سیستم‌های LLM / VLM','focus.llm.text':'سیستم‌های زبانی و چندوجهی برای سناریوهای واقعی نرم‌افزاری.','focus.doc.title':'هوش اسناد','focus.doc.text':'OCR فارسی، درک سند و استخراج ساختاریافته اطلاعات.','focus.serve.title':'سروینگ مدل','focus.serve.text':'اجرای محلی و Self-hosted، APIها، کارایی و فرایندهای استقرار.','focus.backend.title':'بک‌اند هوش مصنوعی','focus.backend.text':'سرویس‌های FastAPI، دیتابیس، اعتبارسنجی، orchestration و یکپارچه‌سازی با نرم‌افزار.',
+    'projects.num':'۰۲ / پروژه‌های منتخب','projects.title':'سیستم‌های منتخب','projects.sub':'توضیحات این بخش فقط در سطح عمومی هستند. معماری داخلی، دیتاست‌ها، پرامپت‌ها، قوانین کسب‌وکار و جزئیات پیاده‌سازی عمداً منتشر نشده‌اند.','project.featured':'پروژه منتخب','project.system':'سیستم','project.engineering':'پروژه‌های مهندسی','meta.focus':'تمرکز','meta.engineering':'مهندسی','meta.stack':'فناوری‌ها','projects.privateTitle':'سیاست انتشار نمونه‌کار:','projects.privateText':'توضیحات پروژه‌ها عمداً در سطح کلی نگه داشته شده‌اند و جزئیات فنی یا تجاری حساس منتشر نمی‌شوند.',
+    'p1.title':'پلتفرم OCR فارسی و هوش اسناد','p1.desc':'سیستم هوش اسناد فارسی با تمرکز بر استخراج قابل‌اعتماد متن و خروجی‌های ساختاریافته برای جریان‌های کاری واقعی.','p1.focus':'هوش اسناد','p1.eng':'قابلیت اطمینان + یکپارچه‌سازی','p1.stack':'Python · FastAPI · OpenCV · GPU Inference',
+    'p2.title':'توسعه و ارزیابی مدل OCR فارسی','p2.desc':'کار روی بهبود و ارزیابی OCR فارسی با داده‌های آماده‌سازی‌شده و فرایندهای اعتبارسنجی قابل‌تکرار.','p2.focus':'کیفیت OCR','p2.eng':'آموزش + ارزیابی','p2.stack':'PyTorch · Transformers · PEFT',
+    'p3.title':'سامانه هوشمند نظرسنجی و بازخورد','p3.desc':'سامانه نظرسنجی نرم‌افزارمحور با پردازش مبتنی بر هوش مصنوعی و جریان ساختاریافته پاسخ‌ها.','p3.focus':'اپلیکیشن‌های AI','p3.eng':'یکپارچه‌سازی جریان کار','p3.stack':'Python · Application AI',
+    'p4.title':'سامانه پاسخ‌گویی صوتی هوشمند','p4.desc':'سیستم تعامل صوتی مبتنی بر هوش مصنوعی که رابط‌های گفتاری را با پردازش مدل زبانی ترکیب می‌کند.','p4.focus':'هوش مصنوعی صوتی','p4.eng':'Orchestration هوش مصنوعی','p4.stack':'Python · Speech · LLM',
+    'p5.title':'گردش کار اسناد هوشمند / دبیرخانه','p5.desc':'اپلیکیشن گردش کار اسناد فارسی با پردازش هوشمند در یک جریان نرم‌افزاری کنترل‌شده.','p5.focus':'گردش کار اسناد','p5.eng':'بک‌اند + یکپارچه‌سازی AI','p5.stack':'FastAPI · PostgreSQL · APIs',
+    'p6.title':'پایپ‌لاین تحلیل و طبقه‌بندی ECG','p6.desc':'پایپ‌لاین بینایی ماشین و یادگیری ماشین برای تحلیل ECG با خروجی‌های ساختاریافته و قابل بررسی.','p6.focus':'بینایی ماشین','p6.eng':'تشخیص + طبقه‌بندی','p6.stack':'OpenCV · ML · Python',
+    'p7.title':'سایر پروژه‌های مهندسی','p7.desc':'کارهای بک‌اند، محصول و یکپارچه‌سازی هوش مصنوعی در سرویس‌های نرم‌افزاری و مهندسی استقرار.','p7.focus':'مهندسی محصول','p7.eng':'بک‌اند + تحویل نرم‌افزار','p7.stack':'Docker · C#/.NET · APIs',
+    'building.num':'۰۳ / در حال ساخت','building.title':'در حال توسعه','building.sub':'نمایی عمومی و کوتاه از چیزی که اکنون در حال بررسی و ساخت آن هستم.','building.project':'سامانه برنامه‌ریزی پروژه با چند مدل','building.desc':'یک سیستم آزمایشی هوش مصنوعی برای مقایسه رویکردهای پیشنهادی مدل‌ها پیش از ورود پروژه به مرحله اجرا.','building.status':'در حال توسعه',
+    'experience.num':'۰۴ / تجربه','experience.title':'تجربه در پروژه‌های واقعی','experience.sub':'نقش‌ها و حوزه‌های مهندسی، به‌صورت خلاصه.','job1.title':'مهندس هوش مصنوعی · پاره‌وقت / پروژه‌ای','job1.desc':'مهندسی پروژه‌ای هوش مصنوعی در حوزه هوش اسناد، LLM/VLM، سروینگ مدل، ارزیابی و یکپارچه‌سازی بک‌اند.','job2.title':'توسعه‌دهنده هوش مصنوعی و تحلیلگر داده','job2.desc':'توسعه محصولات هوش مصنوعی در NLP، بینایی ماشین، پردازش اسناد، تحلیل داده و یکپارچه‌سازی نرم‌افزار.',
+    'writing.num':'۰۵ / نوشته‌ها','writing.title':'موضوعاتی که درباره مهندسی AI می‌نویسم','writing.sub':'یادداشت‌های عمومی درباره مهندسی هوش مصنوعی، قابلیت اطمینان و استقرار.','w1.title':'سیستم‌های هوش مصنوعی قابل‌اعتماد','w1.desc':'چرا برای محصول واقعی، کیفیت مدل به‌تنهایی کافی نیست.','w2.title':'vLLM در برابر Ollama برای سروینگ محلی','w2.desc':'مشاهدات عملی درباره سروینگ محلی و inference با نگاه production.','w3.title':'یادداشت‌های مهندسی OCR فارسی','w3.desc':'درس‌هایی از ساخت و ارزیابی سیستم‌های OCR فارسی.',
+    'about.num':'۰۶ / درباره من','about.title':'مهندسی هوش مصنوعی با نگاه سیستمی','about.text':'در مرز بین مدل‌های هوش مصنوعی و سیستم‌های نرم‌افزاری کار می‌کنم: ارزیابی، سروینگ، APIها، یکپارچه‌سازی بک‌اند و مهندسی لازم برای عبور از نمونه اولیه به محصول قابل‌استفاده.','about.edu':'تحصیلات','about.uni':'دانشگاه صنعتی کرمانشاه','about.degree':'کارشناسی مهندسی شیمی · ۲۰۲۲ — ۲۰۲۶ · ایران',
+    'contact.num':'۰۷ / ارتباط','contact.title':'سیستم هوش مصنوعی شما باید از مرحله دمو عبور کند؟','contact.text':'به پروژه‌های مهندسی AI در حوزه LLM/VLM، هوش اسناد، سروینگ مدل و یکپارچه‌سازی بک‌اند علاقه‌مندم.','contact.email':'ارسال ایمیل','footer.role':'مهندس هوش مصنوعی · ایران'
+  }
+};
+let currentLang='en';
+function t(key){return I18N[currentLang]?.[key]??I18N.en[key]??key}
+function applyLanguage(lang){
+  currentLang=lang==='fa'?'fa':'en';
+  try{localStorage.setItem('portfolioLang',currentLang)}catch(e){}
+  document.documentElement.lang=currentLang;
+  document.documentElement.dir=currentLang==='fa'?'rtl':'ltr';
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.dataset.i18n;if(I18N[currentLang][key]!=null)el.textContent=I18N[currentLang][key]});
+  document.querySelectorAll('[data-en][data-fa]').forEach(el=>{el.textContent=currentLang==='fa'?el.dataset.fa:el.dataset.en});
+  const toggle=document.getElementById('langToggle');
+  toggle.textContent=currentLang==='fa'?'EN':'FA';
+  toggle.setAttribute('aria-label',currentLang==='fa'?'Switch to English':'تغییر زبان به فارسی');
+  document.title=currentLang==='fa'?'امیرمهدی پرویز — مهندس هوش مصنوعی':'Amir Mehdi Parviz — AI Engineer';
+  if(items.length && items[idx]) renderPreviewCopy(items[idx]);
+  if(pname && !items.length) pname.textContent=t('preview.wait');
+}
+document.getElementById('langToggle').addEventListener('click',()=>applyLanguage(currentLang==='en'?'fa':'en'));
+
+const DURATION=5200;
+
+// Explicit media manifest: no directory listing and no GitHub API request.
+// Relative URLs are served directly by GitHub Pages/CDN when deployed from this repo.
+const MEDIA_MANIFEST=[
+  {
+    name:'Speed-and-Distance-Estimator.mp4',
+    src:'examples/Speed-and-Distance-Estimator.mp4',
+    kind:'video',
+    href:'#project-engineering',
+    titleEn:'Vehicle Speed & Distance Estimator',
+    titleFa:'تخمین سرعت و فاصله خودروها',
+    descEn:'Vehicle detection with speed and relative-distance estimation.',
+    descFa:'پروژه تشخیص خودروها و تخمین سرعت و فاصله نسبی آن‌ها.'
+  },
+  {
+    name:'exmaple_ide.png',
+    src:'examples/exmaple_ide.png',
+    kind:'image',
+    href:'#project-engineering',
+    titleEn:'AI-Assisted IDE',
+    titleFa:'IDE هوشمند',
+    descEn:'A custom IDE that can use local AI models such as Ollama to assist with coding.',
+    descFa:'یک IDE شخصی‌سازی‌شده که برای کمک در کدنویسی می‌تواند از مدل‌های محلی مانند Ollama استفاده کند.'
+  },
+  {
+    name:'traffic.mp4',
+    src:'examples/traffic.mp4',
+    kind:'video',
+    href:'#project-engineering',
+    titleEn:'Traffic Flow Tracking',
+    titleFa:'پایش جریان ترافیک',
+    descEn:'Detects vehicles at a four-way intersection, defines entry and exit zones, and records each vehicle’s movement through the junction.',
+    descFa:'سامانه‌ای برای تشخیص خودروها در چهارراه، تعریف ورودی و خروجی برای هر مسیر و ثبت حرکت هر خودرو در تقاطع.'
+  },
+  {
+    name:'ocr_demo.mp4',
+    src:'examples/ocr_demo.mp4',
+    kind:'video',
+    href:'#project-ocr',
+    titleEn:'Persian OCR System',
+    titleFa:'سامانه OCR فارسی',
+    descEn:'A public demo of my Persian OCR and Document AI project.',
+    descFa:'دمویی عمومی از پروژه OCR فارسی و Document AI خودم.'
+  }
+].map(item=>({...item,src:new URL(item.src,location.href).href}));
+
+let items=MEDIA_MANIFEST,idx=0,timer=null,current=null,showSeq=0;
+const preparedMedia=new Map();
+const stage=document.getElementById('previewStage');
+const pname=document.getElementById('previewName');
+const pcount=document.getElementById('previewCount');
+const placeholder=document.getElementById('previewPlaceholder');
+const rail=document.getElementById('mediaRail');
+const previewCaption=document.getElementById('previewCaption');
+const previewProject=document.getElementById('previewProject');
+const previewDescription=document.getElementById('previewDescription');
+const previewProjectLink=document.getElementById('previewProjectLink');
+
+function renderPreviewCopy(item){
+  if(!item)return;
+  previewProject.textContent=currentLang==='fa'?item.titleFa:item.titleEn;
+  previewDescription.textContent=currentLang==='fa'?item.descFa:item.descEn;
+  previewProjectLink.href=item.href||'#projects';
+}
+
+function createMedia(item){
+  const isVideo=item.kind==='video';
+  const el=document.createElement(isVideo?'video':'img');
+  el.className='preview-media';
+  if(isVideo){
+    el.muted=true;
+    el.autoplay=true;
+    el.loop=true;
+    el.playsInline=true;
+    el.preload='auto';
+  }else{
+    el.alt=currentLang==='fa'?item.titleFa:item.titleEn;
+    el.decoding='async';
+    el.loading='eager';
+  }
+  el.src=item.src;
+  return el;
+}
+
+function prepareMedia(i){
+  i=(i+items.length)%items.length;
+  if(preparedMedia.has(i))return preparedMedia.get(i);
+  const item=items[i],el=createMedia(item);
+  const promise=new Promise(resolve=>{
+    if(item.kind==='video'){
+      if(el.readyState>=2)return resolve(el);
+      const done=()=>{cleanup();resolve(el)};
+      const cleanup=()=>{el.removeEventListener('loadeddata',done);el.removeEventListener('canplay',done)};
+      el.addEventListener('loadeddata',done,{once:true});
+      el.addEventListener('canplay',done,{once:true});
+      // Do not block the slideshow indefinitely on a slow connection.
+      setTimeout(()=>{cleanup();resolve(el)},2600);
+      el.load();
+    }else{
+      if(el.complete)return resolve(el);
+      const done=()=>resolve(el);
+      el.addEventListener('load',done,{once:true});
+      el.addEventListener('error',done,{once:true});
+    }
+  });
+  preparedMedia.set(i,promise);
+  return promise;
+}
+
+function warmNext(i){
+  // Only one item ahead is proactively loaded, avoiding an initial download of every video.
+  const next=(i+1)%items.length;
+  prepareMedia(next).catch(()=>{});
+}
+
+function setRail(){
+  if(!rail)return;
+  rail.innerHTML='';
+  items.forEach((it,i)=>{
+    const b=document.createElement('button');
+    b.type='button';
+    b.className='rail-dot';
+    b.title=currentLang==='fa'?it.titleFa:it.titleEn;
+    b.setAttribute('aria-label',(currentLang==='fa'?'نمایش ':'Show ')+(currentLang==='fa'?it.titleFa:it.titleEn));
+    if(i===idx)b.classList.add('active');
+    b.addEventListener('click',()=>show(i));
+    rail.appendChild(b);
+  });
+}
+
+async function show(i){
+  if(!items.length)return;
+  const seq=++showSeq;
+  idx=(i+items.length)%items.length;
+  const it=items[idx];
+  const next=await prepareMedia(idx);
+  if(seq!==showSeq)return;
+
+  if(next.parentNode!==stage)stage.appendChild(next);
+  next.classList.remove('visible');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>next.classList.add('visible')));
+
+  const prev=current;
+  current=next;
+  pname.textContent=it.name;
+  pcount.textContent=`${idx+1}/${items.length}`;
+  renderPreviewCopy(it);
+  previewCaption.classList.add('show');
+
+  if(next.tagName==='VIDEO')next.play().catch(()=>{});
+  if(prev&&prev!==next){
+    prev.classList.remove('visible');
+    if(prev.tagName==='VIDEO')prev.pause();
+    setTimeout(()=>{if(prev!==current&&prev.parentNode===stage)prev.remove()},750);
+  }
+
+  setRail();
+  warmNext(idx);
+  clearTimeout(timer);
+  timer=setTimeout(()=>show(idx+1),DURATION);
+}
+
+placeholder.hidden=true;
+show(0);
+const rev=document.querySelectorAll('.reveal');if('IntersectionObserver'in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});rev.forEach(e=>io.observe(e))}else rev.forEach(e=>e.classList.add('in'));
+let initialLang='en';try{initialLang=localStorage.getItem('portfolioLang')||'en'}catch(e){}applyLanguage(initialLang);
+
+
+// Ambient stars: very faint and static so they remain texture, not decoration.
+const starField=document.getElementById('starField');
+const starCtx=starField?.getContext('2d');
+let starPoints=[];
+function seedStars(){
+  if(!starField||!starCtx)return;
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  const w=window.innerWidth,h=window.innerHeight;
+  starField.width=Math.floor(w*dpr);starField.height=Math.floor(h*dpr);
+  starField.style.width=w+'px';starField.style.height=h+'px';
+  starCtx.setTransform(dpr,0,0,dpr,0,0);
+  const count=Math.max(58,Math.min(145,Math.floor((w*h)/9200)));
+  // Stable pseudo-random layout on resize: no distracting twinkle animation.
+  let seed=72831;
+  const rand=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296};
+  starPoints=Array.from({length:count},()=>({
+    x:rand()*w,y:rand()*h,r:.35+rand()*.9,a:.06+rand()*.14
+  }));
+  starCtx.clearRect(0,0,w,h);
+  starPoints.forEach(st=>{
+    starCtx.beginPath();starCtx.arc(st.x,st.y,st.r,0,Math.PI*2);
+    starCtx.fillStyle=`rgba(237,243,247,${st.a})`;starCtx.fill();
+  });
+}
+seedStars();
+let starResizeTimer;
+window.addEventListener('resize',()=>{clearTimeout(starResizeTimer);starResizeTimer=setTimeout(seedStars,120)},{passive:true});
+
+// Scroll-following orbital highlight. The path uses gentle, vertically monotonic curves
+// so the bright segment stays aligned with the reader as the page scrolls.
+const orbitGlow=document.getElementById('orbitGlow');
+const orbitCore=document.getElementById('orbitCore');
+let orbitTicking=false;
+function updateOrbit(){
+  orbitTicking=false;
+  if(!orbitGlow||!orbitCore)return;
+  const root=document.documentElement;
+  const max=Math.max(1,root.scrollHeight-window.innerHeight);
+  const progress=Math.min(1,Math.max(0,window.scrollY/max));
+  // pathLength=1000 and dash length=115. A non-repeating gap keeps one bright
+  // segment on the path; moving it by 908 units takes it from start to finish.
+  const offset=-(progress*908);
+  orbitGlow.style.strokeDashoffset=String(offset);
+  orbitCore.style.strokeDashoffset=String(offset);
+}
+function requestOrbitUpdate(){
+  if(orbitTicking)return;
+  orbitTicking=true;
+  requestAnimationFrame(updateOrbit);
+}
+updateOrbit();
+window.addEventListener('scroll',requestOrbitUpdate,{passive:true});
+window.addEventListener('resize',requestOrbitUpdate,{passive:true});
+
+</script>
+</body>
+</html>
