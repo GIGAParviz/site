@@ -412,7 +412,9 @@ html[dir=rtl] .cinema-enabled .focus-item{font-family:Vazirmatn,Tahoma,sans-seri
  .cinema-enabled .scroll-stage>.stage-section{inset-inline:12px}
  .cinema-enabled .stage-content{
   inset-block:clamp(18px,3.2svh,28px);max-height:calc(100% - clamp(36px,6.4svh,56px));
-  overflow-y:auto;overflow-x:hidden;scrollbar-width:none;overscroll-behavior:contain
+  /* Keep touch gestures on the document. A nested scroller inside a sticky
+     stage can trap momentum scrolling on iOS and make the page feel frozen. */
+  overflow:hidden;overflow:clip;scrollbar-width:none;overscroll-behavior:auto;touch-action:pan-y
  }
  .cinema-enabled .stage-content::-webkit-scrollbar{display:none;width:0;height:0}
  .cinema-enabled .scroll-stage .section-head{padding:18px 6px!important}
@@ -513,6 +515,17 @@ html[dir=rtl] .cinema-enabled .focus-item{font-family:Vazirmatn,Tahoma,sans-seri
  .cinema-enabled .terminal-sun{top:47%;width:min(94vw,430px)}
  .cinema-enabled .end-crowd{left:50%;right:auto;bottom:-1px;width:min(100vw,630px);max-width:none;transform:translateX(-50%);margin:0}
  .cinema-enabled .end-crowd img{width:100%;transform:translateY(1px)}
+}
+
+@media(max-width:700px) and (max-height:680px){
+ .cinema-enabled .stage-content{inset-block:12px;max-height:calc(100% - 24px);gap:12px}
+ .cinema-enabled .focus-item p{font-size:13px;line-height:1.5}
+ .cinema-enabled #skills .skills-compact{min-height:300px}
+ .cinema-enabled #skills .skill-row{padding:12px 0}
+ .cinema-enabled #experience .jobs{min-height:300px}
+ .cinema-enabled #experience .job-card{padding:14px 0}
+ .cinema-enabled .project-row{padding:9px 0}
+ .cinema-enabled .project-row-main p{font-size:12px;line-height:1.45}
 }
 
 @media(max-width:390px){
@@ -791,7 +804,7 @@ let initialLang='en';try{initialLang=localStorage.getItem('portfolioLang')||'en'
     measure(){
       const y=window.scrollY;
       this.vh=this.enabled?(this.stage.clientHeight||window.innerHeight):window.innerHeight;this.width=document.documentElement.clientWidth;
-      this.compact=this.width<=600||window.innerHeight<600;
+      this.mobile=this.width<=700;this.compact=this.width<=600||window.innerHeight<600;
       let cursor=0;
       for(const ch of this.chapters){
         ch.sequential=['projects','experience'].includes(ch.id)||(this.compact&&['focus','skills','about'].includes(ch.id));
@@ -804,6 +817,11 @@ let initialLang='en';try{initialLang=localStorage.getItem('portfolioLang')||'en'
       const artRect=this.portrait.getBoundingClientRect(),heroRect=this.hero.getBoundingClientRect();
       this.heroTop=this.heroTrack.getBoundingClientRect().top+y;this.heroHeight=this.heroTrack.offsetHeight;this.heroStageHeight=this.hero.offsetHeight;
       this.portraitOffset=artRect.top-heroRect.top+artRect.height;this.portraitX=artRect.left+artRect.width/2-document.body.getBoundingClientRect().left;
+      this.portraitSlices.forEach((slice,i)=>{
+        const simplify=this.mobile&&i%2===1,path=this.portraitStrands[i];
+        slice.style.display=simplify?'none':'';
+        if(path)path.style.display=simplify?'none':'';
+      });
       this.lastPortraitProgress=null;
       this.total=cursor;
       this.track.style.setProperty('--timeline-height',(this.total+this.vh)+'px');
@@ -884,6 +902,7 @@ let initialLang='en';try{initialLang=localStorage.getItem('portfolioLang')||'en'
       this.lastPortraitProgress=p;
       this.portraitSolid.style.opacity=(1-ease(.08,.22,p)).toFixed(4);
       this.portraitSlices.forEach((slice,i)=>{
+        if(this.mobile&&i%2===1)return;
         const delay=(i/63)*.15+(Math.sin(i*2.4)+1)*.022;
         const dissolve=ease(.08+delay,.46+delay,p),merge=ease(.34,.87,p);
         slice.style.opacity=((1-dissolve)*ease(.05,.10,p)).toFixed(4);
@@ -904,8 +923,12 @@ let initialLang='en';try{initialLang=localStorage.getItem('portfolioLang')||'en'
       const endProgress=this.enabled?clamp((y-this.zoneTop)/endTravel):clamp((y+this.vh-this.zoneTop)/this.zoneHeight);
       const shift=this.enabled?clamp(y-this.zoneTop,0,endTravel):0;
       const stageHeight=this.enabled?this.vh:this.zoneHeight;
-      const cy=this.zoneTop+shift+stageHeight/2+this.planetSize*.05,cx=this.width/2;
-      const originY=this.heroTop+(this.enabled?clamp(y-this.heroTop,0,this.heroHeight-this.heroStageHeight):0)+this.portraitOffset;
+      const rawCy=this.zoneTop+shift+stageHeight/2+this.planetSize*.05,cx=this.width/2;
+      const rawOriginY=this.heroTop+(this.enabled?clamp(y-this.heroTop,0,this.heroHeight-this.heroStageHeight):0)+this.portraitOffset;
+      /* Two-pixel snapping on small screens avoids rebuilding and measuring the
+         full SVG route for imperceptible sub-pixel scroll deltas. */
+      const cy=this.mobile?Math.round(rawCy/2)*2:rawCy;
+      const originY=this.mobile?Math.round(rawOriginY/2)*2:rawOriginY;
       if(this.pathY!==cy||this.pathOriginY!==originY){
         const rx=this.planetSize*.43,ry=this.planetSize*.175,angle=-26*Math.PI/180;
         const point=t=>[cx+rx*Math.cos(t)*Math.cos(angle)-ry*Math.sin(t)*Math.sin(angle),cy+rx*Math.cos(t)*Math.sin(angle)+ry*Math.sin(t)*Math.cos(angle)];
